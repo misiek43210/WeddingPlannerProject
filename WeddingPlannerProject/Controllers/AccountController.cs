@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WeddingPlannerProject.Models;
@@ -153,8 +155,14 @@ namespace WeddingPlannerProject.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "suser");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
@@ -402,6 +410,7 @@ namespace WeddingPlannerProject.Controllers
         {
             return View();
         }
+
 
         protected override void Dispose(bool disposing)
         {

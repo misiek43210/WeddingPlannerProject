@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title — moja aplikacja platformy ASP.NET</title>
@@ -10,37 +10,33 @@
 
 </head>
 <body>
- <div class="container">
-     <div class="row">
-         <div class="col-sm-12">
-             <div class="">
-                 <div class="col-sm-10" id="header" style="background-color:red">
-                     dfgdfgdfg
-                 </div>
-                 <div class="col-sm-10 " id="nav" style="background-color:yellow">
-                     <div class="navbar-collapse collapse">
-                         <ul class="nav navbar-nav">
-                             <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                             <li>@Html.ActionLink("O nas", "About", "Home")</li>
-                             <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                             <li>@Html.ActionLink("Oferta", "Offer", "Home")</li>
-                         </ul>
-                         @Html.Partial("_LoginPartial")
-                     </div>
-     
-                 </div>
-                 <div class="col-sm-10" id="main" style="background-color:green">
-                     
-                     @RenderBody()
-                 </div>
-                 <div class="col-sm-10" id="footer" style="background-color:blue">
-                     dfgdfgdfg
-                 </div>
-
-             </div>
-         </div>
-     </div>
- </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Blue Binders", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
+        </footer>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
