@@ -79,6 +79,13 @@ namespace WeddingPlannerProject.Models
         [Display(Name = "Potwierdź hasło")]
         [Compare("Password", ErrorMessage = "Hasło i jego potwierdzenie są niezgodne.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@model WeddingPlannerProject.Models.ApplicationUser
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<div class="panel panel-default settings col-sm-7 basisInfoMargin">
+    <h3 class="text-center">Podstawowe informacje</h3>
+    <div class="panel-body">              
+            <table class="table table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Email</th>
+                        <th>Poziom</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>@Model.FirstName</td>
+                    <td>@Model.LastName</td>
+                    <td>@Model.Email</td>
+                    <td><span class="label label-info">Super Użytkownik</span></td>
+                </tr>
+            </table>
+        <button class="btn btn-info">Edytuj dane</button>
+    </div>
+</div>
+

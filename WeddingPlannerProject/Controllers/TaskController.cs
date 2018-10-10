@@ -11,11 +11,14 @@ namespace WeddingPlannerProject.Controllers
 {
     public class TaskController : Controller
     {
+
+        // Metoda wywołująca widok AddTask, w którym można podać szczegółowe dane zadania
         public ActionResult AddTask()
         {
             return View();
         }
 
+        //Metoda która wysyła dane uzupełnione przez użytkownika do bazy danych
         [HttpPost]
         public ActionResult AddTask(TaskModel task)
         {
@@ -34,7 +37,6 @@ namespace WeddingPlannerProject.Controllers
             {
                 throw dbEx;
             }
-
         }
     }
 }

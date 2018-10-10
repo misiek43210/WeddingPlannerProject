@@ -153,7 +153,7 @@ namespace WeddingPlannerProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -411,6 +411,13 @@ namespace WeddingPlannerProject.Controllers
             return View();
         }
 
+        //Metoda wyświetlająca szczegóły profilu. Można tutaj również dodać zadania
+        public ActionResult MyProfile()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            
+            return View(user);
+        }
 
         protected override void Dispose(bool disposing)
         {

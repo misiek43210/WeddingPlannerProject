@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.settings h3{
+    margin: 0 0 15px;
+}
+
+.basisInfoMargin{
+    margin-top:5px;
+}

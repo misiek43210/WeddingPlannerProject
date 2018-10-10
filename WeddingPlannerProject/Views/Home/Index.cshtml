@@ -3,9 +3,10 @@
 
     if (User.IsInRole("suser"))
     {
+        @Html.Partial("_BookDatePartial")
         @Html.ActionLink("Dodaj zadanie", "AddTask", "Task")
     }
 
 
 
-                    }
+}

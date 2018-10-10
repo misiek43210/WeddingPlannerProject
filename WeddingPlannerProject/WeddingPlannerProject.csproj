@@ -193,12 +193,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\WeddingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810091951237_Mig.cs" />
-    <Compile Include="Migrations\201810091951237_Mig.Designer.cs">
-      <DependentUpon>201810091951237_Mig.cs</DependentUpon>
+    <Compile Include="Migrations\201810101542243_Mig.cs" />
+    <Compile Include="Migrations\201810101542243_Mig.Designer.cs">
+      <DependentUpon>201810101542243_Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -296,6 +297,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Task\AddTask.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
+    <Content Include="Views\Shared\_BookDatePartial.cshtml" />
+    <Content Include="Views\Wedding\BookDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,8 +318,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810091951237_Mig.resx">
-      <DependentUpon>201810091951237_Mig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810101542243_Mig.resx">
+      <DependentUpon>201810101542243_Mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
