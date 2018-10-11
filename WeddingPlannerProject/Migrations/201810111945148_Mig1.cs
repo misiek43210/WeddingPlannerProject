@@ -3,7 +3,7 @@ namespace WeddingPlannerProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Mig : DbMigration
+    public partial class Mig1 : DbMigration
     {
         public override void Up()
         {
@@ -78,7 +78,7 @@ namespace WeddingPlannerProject.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.TaskModels",
+                "dbo.Tasks",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -90,23 +90,70 @@ namespace WeddingPlannerProject.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.Weddings",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Date = c.DateTime(nullable: false),
+                        NumberOfGuests = c.Int(nullable: false),
+                        LocationOfWedding = c.String(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Wedding2Offers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Wedding_Id = c.Int(nullable: false),
+                        Offer_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Offers", t => t.Offer_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Weddings", t => t.Wedding_Id, cascadeDelete: true)
+                .Index(t => t.Wedding_Id)
+                .Index(t => t.Offer_Id);
+            
+            CreateTable(
+                "dbo.Offers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(nullable: false),
+                        Salary = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.TaskModels", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Wedding2Offers", "Wedding_Id", "dbo.Weddings");
+            DropForeignKey("dbo.Wedding2Offers", "Offer_Id", "dbo.Offers");
+            DropForeignKey("dbo.Weddings", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Tasks", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropIndex("dbo.TaskModels", new[] { "UserId" });
+            DropIndex("dbo.Wedding2Offers", new[] { "Offer_Id" });
+            DropIndex("dbo.Wedding2Offers", new[] { "Wedding_Id" });
+            DropIndex("dbo.Weddings", new[] { "UserId" });
+            DropIndex("dbo.Tasks", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropTable("dbo.TaskModels");
+            DropTable("dbo.Offers");
+            DropTable("dbo.Wedding2Offers");
+            DropTable("dbo.Weddings");
+            DropTable("dbo.Tasks");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

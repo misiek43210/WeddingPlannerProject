@@ -7,6 +7,7 @@ using System.Web;
 
 namespace WeddingPlannerProject.Models
 {
+    [Table("Tasks")]
     public class TaskModel
     {       
         [Key]

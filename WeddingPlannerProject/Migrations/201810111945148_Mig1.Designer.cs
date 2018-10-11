@@ -7,13 +7,13 @@ namespace WeddingPlannerProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Mig : IMigrationMetadata
+    public sealed partial class Mig1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Mig));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Mig1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810101542243_Mig"; }
+            get { return "201810111945148_Mig1"; }
         }
         
         string IMigrationMetadata.Source

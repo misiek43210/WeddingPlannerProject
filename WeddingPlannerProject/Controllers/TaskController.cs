@@ -27,7 +27,7 @@ namespace WeddingPlannerProject.Controllers
                 using (var db = new OtherDbContext())
                 {
                     var NewTask = new TaskModel { Description = task.Description, Status = task.Status, UserId = User.Identity.GetUserId() };
-                    db.UserTasks.Add(NewTask);
+                    db.Tasks.Add(NewTask);
                     db.SaveChanges();
                 }
                 return RedirectToAction("index", "Home");
