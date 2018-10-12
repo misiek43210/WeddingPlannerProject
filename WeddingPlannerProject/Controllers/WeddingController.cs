@@ -24,10 +24,10 @@ namespace WeddingPlannerProject.Controllers
             { 
                 using (var db = new OtherDbContext())
                 {
-                    var NewWedding = new WeddingViewModel { UserId = User.Identity.GetUserId(), Date=weddingModel.Date, NumberOfGuests = weddingModel.NumberOfGuests, LocationOfWedding = weddingModel.LocationOfWedding };              
+                    var NewWedding = new WeddingViewModel { UserId = User.Identity.GetUserId(), Date=weddingModel.Date, NumberOfGuests = weddingModel.NumberOfGuests, LocationOfWedding = weddingModel.LocationOfWedding };
                     //TODO: Dodać oferty do bazy danych, następnie przekazać je do Wedding2Offer, nastepnie zapisać do bazy danych!
-                    db.Weddings.Add(NewWedding);
-                    db.SaveChanges();
+                        db.Weddings.Add(NewWedding);
+                        db.SaveChanges();                                      
                 }
                 return RedirectToAction("index", "Home");
             }
