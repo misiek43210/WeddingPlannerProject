@@ -8,7 +8,7 @@ using System.Web;
 namespace WeddingPlannerProject.Models
 {
     [Table("Weddings")]
-    public class WeddingViewModel
+    public class WeddingViewModels
     {
         [Key]
         public int Id { get; set; }
@@ -42,7 +42,7 @@ namespace WeddingPlannerProject.Models
         public int Offer_Id { get; set; }
 
         public virtual OfferViewModel OfferId { get; set; }
-        public virtual WeddingViewModel WeddingId { get; set; }
+        public virtual WeddingViewModels WeddingId { get; set; }
     }
 
 
@@ -59,6 +59,17 @@ namespace WeddingPlannerProject.Models
         public string Salary { get; set; }
 
         public virtual ICollection<Wedding2OfferViewModel> Wedding_2_Offer { get; set; }
+
+        public static implicit operator List<object>(OfferViewModel v)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class WeddingOfferViewModel
+    {
+        public WeddingViewModels Wedding { get; set; }
+        public List<OfferViewModel> Offer { get; set; }
 
     }
 }

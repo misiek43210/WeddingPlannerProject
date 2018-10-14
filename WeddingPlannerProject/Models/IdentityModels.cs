@@ -13,7 +13,7 @@ namespace WeddingPlannerProject.Models
         //Dodanie kolekcji tasków do użytkownika
         public virtual ICollection<TaskModel> UserTasks { get; set; }
         //jedno wesele do jednego użytkownika
-        public virtual ICollection<WeddingViewModel> WeddingModel { get; set; }
+        public virtual ICollection<WeddingViewModels> WeddingModel { get; set; }
 
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -27,7 +27,7 @@ namespace WeddingPlannerProject.Models
     public class OtherDbContext : IdentityDbContext
     {
         public DbSet<TaskModel> Tasks { get; set; }
-        public DbSet<WeddingViewModel> Weddings { get; set; }
+        public DbSet<WeddingViewModels> Weddings { get; set; }
         public DbSet<OfferViewModel> Offers { get; set; }
         public DbSet<Wedding2OfferViewModel> Wedding2Offers { get; set; }
 

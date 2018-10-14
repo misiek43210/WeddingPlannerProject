@@ -13,23 +13,34 @@ namespace WeddingPlannerProject.Controllers
         //Wyświetlanie strony rezerwacji terminu
         public ActionResult BookDate()
         {
-            return View();
+            using (var db = new OtherDbContext()) {
+                WeddingOfferViewModel Offers = new WeddingOfferViewModel { Offer = db.Offers.ToList() };
+                return View(Offers);
+            }             
         }
 
         //Wysyłanie danych odnośnie rezerwacji terminu
         [HttpPost]
-        public ActionResult BookDate(WeddingViewModel weddingModel, OfferViewModel offerModel, Wedding2OfferViewModel Wedding2Offer)
+        public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel, Wedding2OfferViewModel Wedding2Offer)
         {
             try
             { 
                 using (var db = new OtherDbContext())
                 {
-                    var NewWedding = new WeddingViewModel { UserId = User.Identity.GetUserId(), Date=weddingModel.Date, NumberOfGuests = weddingModel.NumberOfGuests, LocationOfWedding = weddingModel.LocationOfWedding };
-                    //TODO: Dodać oferty do bazy danych, następnie przekazać je do Wedding2Offer, nastepnie zapisać do bazy danych!
-                        db.Weddings.Add(NewWedding);
+                    var NewWedding = new WeddingOfferViewModel
+                    {
+                        Wedding = new WeddingViewModels { UserId = User.Identity.GetUserId(),
+                            Date = WeddingOfferViewModel.Wedding.Date,
+                            NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests,
+                            LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding }
+                    };
+                              
+                    var NewWedding2Offer = new Wedding2OfferViewModel { Offer_Id = 1, Wedding_Id = NewWedding.Wedding.Id };
+                        db.Weddings.Add(NewWedding.Wedding);
+                        db.Wedding2Offers.Add(NewWedding2Offer);
                         db.SaveChanges();                                      
                 }
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Index","Home");
             }
 
             catch (DbEntityValidationException dbEx)
