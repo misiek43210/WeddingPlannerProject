@@ -13,7 +13,7 @@ namespace WeddingPlannerProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201810111945148_Mig1"; }
+            get { return "201810141826414_Mig1"; }
         }
         
         string IMigrationMetadata.Source

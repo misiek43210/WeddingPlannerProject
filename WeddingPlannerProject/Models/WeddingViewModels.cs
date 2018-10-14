@@ -60,16 +60,12 @@ namespace WeddingPlannerProject.Models
 
         public virtual ICollection<Wedding2OfferViewModel> Wedding_2_Offer { get; set; }
 
-        public static implicit operator List<object>(OfferViewModel v)
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsChecked { get; set; }
     }
 
     public class WeddingOfferViewModel
     {
         public WeddingViewModels Wedding { get; set; }
         public List<OfferViewModel> Offer { get; set; }
-
     }
 }

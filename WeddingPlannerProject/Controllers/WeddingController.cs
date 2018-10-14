@@ -21,7 +21,7 @@ namespace WeddingPlannerProject.Controllers
 
         //Wysyłanie danych odnośnie rezerwacji terminu
         [HttpPost]
-        public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel, Wedding2OfferViewModel Wedding2Offer)
+        public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel)
         {
             try
             { 
@@ -29,16 +29,31 @@ namespace WeddingPlannerProject.Controllers
                 {
                     var NewWedding = new WeddingOfferViewModel
                     {
-                        Wedding = new WeddingViewModels { UserId = User.Identity.GetUserId(),
+                        Wedding = new WeddingViewModels
+                        {
+                            UserId = User.Identity.GetUserId(),
                             Date = WeddingOfferViewModel.Wedding.Date,
                             NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests,
-                            LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding }
+                            LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding
+                        }
                     };
-                              
-                    var NewWedding2Offer = new Wedding2OfferViewModel { Offer_Id = 1, Wedding_Id = NewWedding.Wedding.Id };
-                        db.Weddings.Add(NewWedding.Wedding);
-                        db.Wedding2Offers.Add(NewWedding2Offer);
-                        db.SaveChanges();                                      
+
+
+                    //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
+                    var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
+                    foreach (var item in selectedOffer)
+                    {
+                        var Wedding2Offer = new Wedding2OfferViewModel
+                        {
+                            Wedding_Id = NewWedding.Wedding.Id,
+                            Offer_Id = item.Id
+                        };
+                        db.Wedding2Offers.Add(Wedding2Offer);
+                    }
+
+                    //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
+                    db.Weddings.Add(NewWedding.Wedding);
+                    db.SaveChanges();                                      
                 }
                 return RedirectToAction("Index","Home");
             }
