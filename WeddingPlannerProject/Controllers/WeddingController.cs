@@ -13,9 +13,18 @@ namespace WeddingPlannerProject.Controllers
         //Wyświetlanie strony rezerwacji terminu
         public ActionResult BookDate()
         {
+            var LoggedUserId = User.Identity.GetUserId();
             using (var db = new OtherDbContext()) {
-                WeddingOfferViewModel Offers = new WeddingOfferViewModel { Offer = db.Offers.ToList() };
-                return View(Offers);
+                var isUserHasWedding = db.Weddings.FirstOrDefault(x => x.UserId == LoggedUserId); ;
+           
+                if(isUserHasWedding != null){
+                    return View("HasUserAlreadyWedding");
+                }
+
+                else {
+                    WeddingOfferViewModel Offers = new WeddingOfferViewModel { Offer = db.Offers.ToList() };
+                    return View(Offers);
+                }               
             }             
         }
 

@@ -301,8 +301,9 @@
     <Content Include="Views\Task\AddTask.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
     <Content Include="Views\Wedding\BookDate.cshtml" />
-    <Content Include="Views\Shared\_BookDatePartialView.cshtml" />
     <Content Include="Views\Admin\ChangeUser.cshtml" />
+    <Content Include="Views\Shared\_HasAlreadyWeddingPartial.cshtml" />
+    <Content Include="Views\Wedding\HasUserAlreadyWedding.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
