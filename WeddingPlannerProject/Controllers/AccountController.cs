@@ -162,7 +162,7 @@ namespace WeddingPlannerProject.Controllers
 
                     var currentUser = UserManager.FindByName(user.UserName);
 
-                    var roleresult = UserManager.AddToRole(currentUser.Id, "suser");
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "user");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

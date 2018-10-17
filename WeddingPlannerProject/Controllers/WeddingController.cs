@@ -32,8 +32,6 @@ namespace WeddingPlannerProject.Controllers
         [HttpPost]
         public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel)
         {
-            try
-            { 
                 using (var db = new OtherDbContext())
                 {
                     var NewWedding = new WeddingOfferViewModel
@@ -47,7 +45,6 @@ namespace WeddingPlannerProject.Controllers
                         }
                     };
 
-
                     //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
                     var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
                     foreach (var item in selectedOffer)
@@ -57,7 +54,7 @@ namespace WeddingPlannerProject.Controllers
                             Wedding_Id = NewWedding.Wedding.Id,
                             Offer_Id = item.Id
                         };
-                        db.Wedding2Offers.Add(Wedding2Offer);
+                        db.Wedding2Offers.Add(Wedding2Offer);                        
                     }
 
                     //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
@@ -65,29 +62,60 @@ namespace WeddingPlannerProject.Controllers
                     db.SaveChanges();                                      
                 }
                 return RedirectToAction("Index","Home");
-            }
-
-            catch (DbEntityValidationException dbEx)
-            {
-                throw dbEx;
-            }
         }
 
-
-
+        //Zmiana danych o weselu
         public ActionResult ChangeWedding()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult ChangeWedding(WeddingViewModels Wedding)
         {
             using (var db = new OtherDbContext())
             {
+                WeddingOfferViewModel Offers = new WeddingOfferViewModel { Offer = db.Offers.ToList() };
+                return View(Offers);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeWedding(WeddingOfferViewModel WeddingOfferViewModel)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var WeddingToChange = new WeddingOfferViewModel
+                {
+                    Offer = new List<OfferViewModel>(),
+                    Wedding = new WeddingViewModels()                    
+                };
 
 
-                return View();
+                //Pobranie wesela i przypisanie nowych wartości   
+                WeddingToChange.Wedding = db.Weddings.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                WeddingToChange.Wedding.LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding;
+                WeddingToChange.Wedding.NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests;
+
+                var WeddingOffers = db.Wedding2Offers.Where(x => x.Wedding_Id == WeddingToChange.Wedding.Id).ToList();
+                foreach (var item in WeddingOffers)
+                {
+                    db.Wedding2Offers.Remove(item);
+                }
+
+                //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
+                var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
+                foreach (var item in selectedOffer)
+                {
+                    var Wedding2Offer = new Wedding2OfferViewModel
+                    {
+                        Wedding_Id = WeddingToChange.Wedding.Id,
+                        Offer_Id = item.Id
+                    };
+                    db.Wedding2Offers.Add(Wedding2Offer);
+                }
+
+                //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
+                db.SaveChanges();
+
+                ViewBag.Message = "Pomyslnie zmieniono dane!";
+
+                return RedirectToAction("Home","Index");
             }
         }
     }

@@ -11,9 +11,13 @@
         </div>
     </div>
     <div class="form-group">
+   
         @Html.LabelFor(m => m.Status, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Status, new[]{
+new SelectListItem(){Text="Ukonczone" },
+new SelectListItem(){Text="Zaplanowane"},
+new SelectListItem(){Text="W trakcie"}}, "Wybierz opcję!")
         </div>
     </div>
     <div class="form-group">

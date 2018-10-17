@@ -1,22 +1,15 @@
 ﻿@model WeddingPlannerProject.Models.WeddingOfferViewModel
 @{
-                /**/
-
-                ViewBag.Title = "Zarejestruj wesele w systemie";
+    ViewBag.Title = "ChangeWedding";
 }
-
 <div style="padding-top:50px">
     <h2 class="text-center">@ViewBag.Title</h2>
 
-    @using (Html.BeginForm("BookDate", "Wedding", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("ChangeWedding", "Wedding", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         <hr />
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Wedding.Date, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Wedding.Date, new { @class = "form-control" })
-            </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Wedding.NumberOfGuests, new { @class = "col-md-2 control-label" })
@@ -49,14 +42,13 @@
                         <td>@Html.DisplayFor(m => m.Offer[i].Description)</td>
                         <td>@Html.DisplayFor(m => m.Offer[i].Salary)</td>
                         @Html.HiddenFor(m => m.Offer[i].Id)
-      
                     </tr>
                 }
             </table>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Zarejestruj" />
+                <input type="submit" class="btn btn-default" value="Zatwierdź" />
             </div>
         </div>
     }
@@ -65,3 +57,4 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WeddingPlannerProject.Models.TaskModel>
+@{
+    ViewBag.Title = "MyTasks";
+}
+
+<h2>MyTasks</h2>
+
+
+<div>
+    <div class="col-sm-12" style="margin-top:50px;">
+        <table class="table table-striped">
+            <thead style="background-color:#4CAF40;">
+                <tr>
+                    <td colspan="4" class="text-center"><b>Ukonczone</b></td>
+                </tr>
+                <tr>
+                    <th>L.p</th>
+                    <th>Opis</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var counter = 0;}
+                @foreach (var task in Model)
+                 {
+                    if(task.Status == "Ukonczone") { 
+            <tr>
+                <td>@{counter++;}</td>
+                <td>@task.Description</td>
+                <td>@task.Status</td>
+                <td>
+                    <input type="submit" class="btn btn-warning" value="Usun" />
+                    <input type="submit" class="btn btn-info" value="Zmien" />
+                </td>
+            </tr>
+                    }
+                    }
+            </tbody>
+
+        </table>
+    </div>
+
+
+    <div class="col-sm-12" style="margin-top:50px;">
+        <table class="table table-striped">
+            <thead style="background-color:brown;">
+                <tr>
+                    <td colspan="4" class="text-center"><b>Zaplanowane</b></td>
+                </tr>
+                <tr>
+                    <th>L.p</th>
+                    <th>Opis</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var counter1 = 0;}
+             @foreach (var task in Model)
+              {
+                 if(task.Status == "Zaplanowane")
+                 {
+            <tr>
+                <td>@{counter1++;}</td>
+                <td>@task.Description</td>
+                <td>@task.Status</td>
+                <td>
+                    <input type="submit" class="btn btn-warning" value="Usun" />
+                    <input type="submit" class="btn btn-info" value="Zmien" />
+                </td>
+            </tr>
+                 }
+              }
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="col-sm-12" style="margin-top:50px;">
+        <table class="table table-striped">
+            <thead style="background-color:darkgoldenrod">
+                <tr>
+                    <td colspan="4" class="text-center"><b>W trakcie</b></td>
+                </tr>
+                <tr>
+                    <th>L.p</th>
+                    <th>Opis</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var counter2 = 0;}
+                @foreach (var task in Model)
+                {
+
+                    if (task.Status == "W trakcie")
+                    {
+            <tr>
+                <td>@{counter2++;}</td>
+                <td>@task.Description</td>
+                <td>@task.Status</td>
+                <td>
+                    <input type="submit" class="btn btn-warning" value="Usun" />
+                    <input type="submit" class="btn btn-info" value="Zmien" />
+                </td>
+            </tr>   
+                    }
+                 }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

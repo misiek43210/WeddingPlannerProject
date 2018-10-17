@@ -12,6 +12,16 @@ namespace WeddingPlannerProject.Controllers
     public class TaskController : Controller
     {
 
+        public ActionResult MyTasks()
+        {
+            using (var db = new OtherDbContext())
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var UserTasks = db.Tasks.Where(x => x.UserId == currentUserId).ToList();
+                return View(UserTasks);
+            }
+        }
+
         // Metoda wywołująca widok AddTask, w którym można podać szczegółowe dane zadania
         public ActionResult AddTask()
         {
