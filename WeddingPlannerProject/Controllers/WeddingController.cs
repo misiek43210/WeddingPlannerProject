@@ -72,5 +72,23 @@ namespace WeddingPlannerProject.Controllers
                 throw dbEx;
             }
         }
+
+
+
+        public ActionResult ChangeWedding()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeWedding(WeddingViewModels Wedding)
+        {
+            using (var db = new OtherDbContext())
+            {
+
+
+                return View();
+            }
+        }
     }
 }

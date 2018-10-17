@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
@@ -414,9 +415,21 @@ namespace WeddingPlannerProject.Controllers
         //Metoda wyświetlająca szczegóły profilu. Można tutaj również dodać zadania
         public ActionResult MyProfile()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            
-            return View(user);
+            using (var db = new OtherDbContext())
+            {
+                var MyProfile = new MyProfileViewModel
+                {
+                    AppUser = new ApplicationUser(),
+                    Wedding = new WeddingViewModels(),
+                    WeddingOffer = new List<Wedding2OfferViewModel>()
+                };
+
+                var currentUserId = User.Identity.GetUserId();
+                MyProfile.AppUser = UserManager.FindById(currentUserId);
+                MyProfile.Wedding = db.Weddings.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                MyProfile.WeddingOffer = db.Wedding2Offers.Where(x => x.Wedding_Id == MyProfile.Wedding.Id).ToList();
+                return View(MyProfile);
+            }
         }
 
         protected override void Dispose(bool disposing)

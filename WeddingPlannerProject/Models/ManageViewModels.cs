@@ -84,13 +84,6 @@ namespace WeddingPlannerProject.Models
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
 
-    public class MyProfileViewModel
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-    }
-
     public class UsersViewModel
     {
         public List<ApplicationUser> Users { get; set; }

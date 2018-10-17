@@ -116,4 +116,11 @@ namespace WeddingPlannerProject.Models
         [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
     }
+
+    public class MyProfileViewModel
+    {
+        public ApplicationUser AppUser { get; set; }
+        public WeddingViewModels Wedding { get; set; }
+        public List<Wedding2OfferViewModel> WeddingOffer { get; set; }
+    }
 }

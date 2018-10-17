@@ -62,7 +62,6 @@ namespace WeddingPlannerProject.Models
         public virtual ICollection<Wedding2OfferViewModel> Wedding_2_Offer { get; set; }
 
         public bool IsChecked { get; set; }
-        public string TotalValue { get; set; }
     }
 
     public class WeddingOfferViewModel
