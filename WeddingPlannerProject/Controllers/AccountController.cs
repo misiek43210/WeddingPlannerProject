@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WeddingPlannerProject.Models;
+using WeddingPlannerProject.Helpers;
 
 namespace WeddingPlannerProject.Controllers
 {
@@ -154,7 +155,7 @@ namespace WeddingPlannerProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -427,7 +428,10 @@ namespace WeddingPlannerProject.Controllers
                 var currentUserId = User.Identity.GetUserId();
                 MyProfile.AppUser = UserManager.FindById(currentUserId);
                 MyProfile.Wedding = db.Weddings.Where(x => x.UserId == currentUserId).FirstOrDefault();
-                MyProfile.WeddingOffer = db.Wedding2Offers.Where(x => x.Wedding_Id == MyProfile.Wedding.Id).ToList();
+                if(WeddingHelper.HasUserWedding(MyProfile.AppUser))
+                {
+                    MyProfile.WeddingOffer = db.Wedding2Offers.Where(x => x.Wedding_Id == MyProfile.Wedding.Id).ToList();
+                }
                 return View(MyProfile);
             }
         }

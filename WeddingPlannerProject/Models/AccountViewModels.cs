@@ -86,6 +86,10 @@ namespace WeddingPlannerProject.Models
         [Required]
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Numer Telefonu")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

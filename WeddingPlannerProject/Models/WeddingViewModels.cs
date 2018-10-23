@@ -14,12 +14,15 @@ namespace WeddingPlannerProject.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Data wesela")]
         public DateTime Date { get; set; }
 
         [Required]
+        [Display(Name = "Liczba Gości")]
         public int NumberOfGuests { get; set; }
 
         [Required]
+        [Display(Name ="Lokalizacja wesela")]
         public string LocationOfWedding { get; set; }
 
         [ForeignKey("User")]
@@ -52,6 +55,9 @@ namespace WeddingPlannerProject.Models
 
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
 
         [Required]
         public string Description { get; set; }

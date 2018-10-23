@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -32,21 +33,51 @@ namespace WeddingPlannerProject.Controllers
         [HttpPost]
         public ActionResult AddTask(TaskModel task)
         {
-            try
-            {
                 using (var db = new OtherDbContext())
                 {
                     var NewTask = new TaskModel { Description = task.Description, Status = task.Status, UserId = User.Identity.GetUserId() };
                     db.Tasks.Add(NewTask);
                     db.SaveChanges();
                 }
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("index", "Home");         
+        }
+
+        public ActionResult RemoveTask(int TaskId)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var taskToDelete = db.Tasks.Where(x => x.Id == TaskId).FirstOrDefault();
+                db.Tasks.Remove(taskToDelete);
+                db.SaveChanges();
+            return RedirectToAction("MyTasks");
+            }
+        }
+
+        public ActionResult EditTask(int TaskId)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var currentTask = db.Tasks.Where(x => x.Id == TaskId).FirstOrDefault();
+
+                return View(currentTask);
+            }               
+        }
+
+        [HttpPost]
+        public ActionResult EditTask(int TaskId, TaskModel task)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var EditTask = db.Tasks.Where(x => x.Id == TaskId).FirstOrDefault();
+                EditTask.Status = task.Status;
+                EditTask.Description = task.Description;
+                db.Tasks.Add(EditTask);
+                db.Entry(EditTask).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("MyTasks");
             }
 
-            catch (DbEntityValidationException dbEx)
-            {
-                throw dbEx;
-            }
+
         }
     }
 }

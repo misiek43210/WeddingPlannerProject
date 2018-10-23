@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated)
 {
 
-    if (User.IsInRole("user"))
+    if(User.IsInRole("user"))
     {
 <div class="col-md-12 text-center">
     <h1>Jesteś zdecydowany?</h1>
@@ -11,7 +11,7 @@
 </div>
     }
 
-    if (User.IsInRole("suser"))
+    else if(User.IsInRole("suser"))
     {
         @Html.ActionLink("Dodaj zadanie", "AddTask", "Task")
     }

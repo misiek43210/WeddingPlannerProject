@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body style="background-image:url(/images/bnanner2.jpg); background-repeat:no-repeat; background-size:cover">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,6 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Oferta", "Offer", "Home")</li>
                     <li>@Html.ActionLink("Informacje", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
@@ -30,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="background-color:floralwhite; margin-top:20px; border-radius: 4px 4px;">
         @RenderBody()
 
     </div>
@@ -38,7 +39,7 @@
     <div class="container body-content">
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
+            <p class="text-info"><b>&copy; @DateTime.Now.Year — Zespół muzyczny Blue Binders</b></p>
         </footer>
     </div>
  

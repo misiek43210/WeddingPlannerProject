@@ -200,13 +200,9 @@
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\WeddingHelper.cs" />
-    <Compile Include="Migrations\201810141826414_Mig1.cs" />
-    <Compile Include="Migrations\201810141826414_Mig1.Designer.cs">
-      <DependentUpon>201810141826414_Mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810171154504_mig2.cs" />
-    <Compile Include="Migrations\201810171154504_mig2.Designer.cs">
-      <DependentUpon>201810171154504_mig2.cs</DependentUpon>
+    <Compile Include="Migrations\201810231802020_mig1.cs" />
+    <Compile Include="Migrations\201810231802020_mig1.Designer.cs">
+      <DependentUpon>201810231802020_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -235,6 +231,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\banner.jpg" />
+    <Content Include="images\bnanner2.jpg" />
+    <Content Include="images\home-music-background.jpg" />
     <Content Include="images\pic01.jpg" />
     <Content Include="images\pic02.jpg" />
     <Content Include="images\pic03.jpg" />
@@ -242,6 +240,8 @@
     <Content Include="images\pic05.jpg" />
     <Content Include="images\pic06.jpg" />
     <Content Include="images\pic07.jpg" />
+    <Content Include="images\rap-music-rap-music-photo-background.jpeg" />
+    <Content Include="images\wallpaper-images-records-music-99489.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -315,6 +315,8 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Home\Offer.cshtml" />
+    <Content Include="Views\Task\EditTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,11 +335,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810141826414_Mig1.resx">
-      <DependentUpon>201810141826414_Mig1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810171154504_mig2.resx">
-      <DependentUpon>201810171154504_mig2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810231802020_mig1.resx">
+      <DependentUpon>201810231802020_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

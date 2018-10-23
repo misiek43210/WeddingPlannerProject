@@ -49,5 +49,14 @@ namespace WeddingPlannerProject.Controllers
 
             return View();
         }
+
+        public ActionResult Offer()
+        {
+            using (var db = new OtherDbContext())
+            {
+                var OfferList = db.Offers.ToList();
+                return View(OfferList);
+            }            
+        }
     }
 }

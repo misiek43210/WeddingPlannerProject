@@ -30,8 +30,18 @@
                 <td>@task.Description</td>
                 <td>@task.Status</td>
                 <td>
-                    <input type="submit" class="btn btn-warning" value="Usun" />
-                    <input type="submit" class="btn btn-info" value="Zmien" />
+
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-danger" value="Edytuj" />
+                          }
+
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-warning" value="Usun" />
+                          }
                 </td>
             </tr>
                     }
@@ -66,8 +76,18 @@
                 <td>@task.Description</td>
                 <td>@task.Status</td>
                 <td>
-                    <input type="submit" class="btn btn-warning" value="Usun" />
-                    <input type="submit" class="btn btn-info" value="Zmien" />
+
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-danger" value="Edytuj" />
+                          }
+
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-warning" value="Usun" />
+                          }
                 </td>
             </tr>
                  }
@@ -102,8 +122,18 @@
                 <td>@task.Description</td>
                 <td>@task.Status</td>
                 <td>
-                    <input type="submit" class="btn btn-warning" value="Usun" />
-                    <input type="submit" class="btn btn-info" value="Zmien" />
+
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-warning" value="Edytuj" />
+                          }
+
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          {
+                             @Html.Hidden("TaskId", task.Id)
+                             <input type="submit" class="btn btn-danger" value="Usun" />
+                          }
                 </td>
             </tr>   
                     }

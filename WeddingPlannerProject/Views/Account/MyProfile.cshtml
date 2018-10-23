@@ -42,6 +42,8 @@
     <div class="panel panel-default col-sm-12">
         <h2 class="text-center text-info">Moje Wesele</h2>
         <div class="panel-body">
+            @if(WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(Model.AppUser))
+            {
             <table class="table table-striped table-condensed">
                 <thead>
                     <tr>
@@ -64,6 +66,12 @@
                     @Html.ActionLink("Zmien dane", "ChangeWedding", "Wedding")
                 </tr>
             </table>
+            }
+
+            else
+            {
+            <h3 class="text-center text-danger">Nie masz jeszcze zarejestrowanego wesela w systemie!</h3>
+            }
         </div>
     </div>
 
