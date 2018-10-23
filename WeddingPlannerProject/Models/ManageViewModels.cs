@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 
 namespace WeddingPlannerProject.Models
@@ -87,5 +88,13 @@ namespace WeddingPlannerProject.Models
     public class UsersViewModel
     {
         public List<ApplicationUser> Users { get; set; }
+        public List<IdentityRole> Roles { set; get; }
+    }
+
+    public class EditUserViewModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string ApplicationRoleId { get; set; }
     }
 }

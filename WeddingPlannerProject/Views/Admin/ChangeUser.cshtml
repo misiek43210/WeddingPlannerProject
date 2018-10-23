@@ -1,11 +1,18 @@
 ﻿@model WeddingPlannerProject.Models.UsersViewModel
 @{
-    /**/
-
     ViewBag.Title = "ChangeUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-    <div class="panel-body">
+<div style="padding-top:3em">
+    <h2 class="text-center">Lista uzytkownikow</h2>
+</div>
+
+<div class="panel-body" style="padding-top:5em">
+    @using (Html.BeginForm("UsersList", "Admin", FormMethod.Get))
+    {
+        @Html.TextBox("searching")<input type="submit" value="Szukaj" />
+    }
         <table class="table table-striped table-condensed">
             <thead>
                 <tr>
@@ -13,28 +20,44 @@
                     <th>Imie</th>
                     <th>Nazwisko</th>
                     <th>Email</th>
+                    <td>Rola</td>
                     <th>Akcja</th>
                 </tr>
             </thead>
-
-            @foreach (var users in Model.Users)
+            @{ int counter = 1;}
+            @foreach (var user in Model.Users)
             {
                 <tr>
-                    <td></td>
-                    <td>@users.FirstName</td>
-                    <td>@users.LastName</td>
-                    <td>@users.Email</td>                   
+                    <td>@(counter++)</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@string.Join(",", Model.Roles.Where(r => r.Users.Any(u => u.UserId == user.Id)).Select(r => r.Name))</td>
                     <td>
                         @using (Html.BeginForm("RemoveUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
-                            @Html.Hidden("UserNameToDelete", users.Id )
+                            @Html.Hidden("UserNameToDelete", user.Id)
                             <input type="submit" class="btn btn-danger" value="Usun" />
                         }
-                        </td>
+                        @using (Html.BeginForm("EditUser", "Admin", FormMethod.Get))
+                        {
+                            @Html.Hidden("UserNameToEdit", user.Id)
+                            <input type="submit" class="btn btn-info" value="Edytuj" />
+                        }
+
+                        @using (Html.BeginForm("UserWedding", "Admin", FormMethod.Get))
+                        {
+                            if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(user))
+                            {
+                                @Html.Hidden("UserIdWedding", user.Id)
+                                <input type="submit" class="btn btn-primary" value="Wesele" />
+                            }
+                        }
+                    </td>
                 </tr>
             }
-
         </table>
+        <input type="submit" class="btn btn-lg btn-success" value="Dodaj nowego uzytkownika!" />
     </div>
-}
+
 

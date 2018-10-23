@@ -1,17 +1,18 @@
 ﻿@if (Request.IsAuthenticated)
 {
 
-    if (User.IsInRole("suser"))
+    if (User.IsInRole("user"))
     {
 <div class="col-md-12 text-center">
     <h1>Jesteś zdecydowany?</h1>
     <div class="form-group">
         <a href="/Wedding/BookDate" class="btn btn-info btn-lg" role="button">Rezerwuj termin!</a>
     </div>
-    <div class="form-group">
-    @Html.ActionLink("USUN", "RemoveUser", "Admin")
-    </div>
 </div>
+    }
+
+    if (User.IsInRole("suser"))
+    {
         @Html.ActionLink("Dodaj zadanie", "AddTask", "Task")
     }
 }

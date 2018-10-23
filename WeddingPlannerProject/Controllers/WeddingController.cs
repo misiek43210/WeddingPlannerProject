@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WeddingPlannerProject.Models;
+using WeddingPlannerProject.Helpers;
 namespace WeddingPlannerProject.Controllers
 {
     public class WeddingController : Controller
@@ -32,34 +33,42 @@ namespace WeddingPlannerProject.Controllers
         [HttpPost]
         public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel)
         {
-                using (var db = new OtherDbContext())
+            var appdb = new ApplicationDbContext();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = appdb.Users.Where(x => x.Id == currentUserId).FirstOrDefault();
+            
+
+            using (var db = new OtherDbContext())
+            {
+                var NewWedding = new WeddingOfferViewModel
                 {
-                    var NewWedding = new WeddingOfferViewModel
+                    Wedding = new WeddingViewModels
                     {
-                        Wedding = new WeddingViewModels
-                        {
-                            UserId = User.Identity.GetUserId(),
-                            Date = WeddingOfferViewModel.Wedding.Date,
-                            NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests,
-                            LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding
-                        }
-                    };
-
-                    //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
-                    var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
-                    foreach (var item in selectedOffer)
-                    {
-                        var Wedding2Offer = new Wedding2OfferViewModel
-                        {
-                            Wedding_Id = NewWedding.Wedding.Id,
-                            Offer_Id = item.Id
-                        };
-                        db.Wedding2Offers.Add(Wedding2Offer);                        
+                        UserId = User.Identity.GetUserId(),
+                        Date = WeddingOfferViewModel.Wedding.Date,
+                        NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests,
+                        LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding
                     }
+                };
 
-                    //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
-                    db.Weddings.Add(NewWedding.Wedding);
-                    db.SaveChanges();                                      
+                //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
+                var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
+                foreach (var item in selectedOffer)
+                {
+                    var Wedding2Offer = new Wedding2OfferViewModel
+                    {
+                        Wedding_Id = NewWedding.Wedding.Id,
+                        Offer_Id = item.Id
+                    };
+                    db.Wedding2Offers.Add(Wedding2Offer);
+                }
+
+                //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
+                db.Weddings.Add(NewWedding.Wedding);
+                db.SaveChanges();
+                string message = "Uzytkownik " + currentUser.FirstName + " " + currentUser.LastName + " zarezerwowal termin " + NewWedding.Wedding.Date + " . Skontaktuj sie z nim!";
+                string subject = "Zarezerwowano nowe wesele!";
+                EmailHelper.SendEmail(message, subject);
                 }
                 return RedirectToAction("Index","Home");
         }
