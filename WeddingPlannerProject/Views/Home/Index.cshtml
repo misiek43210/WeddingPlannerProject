@@ -1,17 +1,26 @@
-﻿@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated == false)
 {
-
-    if(User.IsInRole("user"))
-    {
-<div class="col-md-12 text-center">
-    <h1>Jesteś zdecydowany?</h1>
-    <div class="form-group">
-        <a href="/Wedding/BookDate" class="btn btn-info btn-lg" role="button">Rezerwuj termin!</a>
+    <h1 class="text-center">Witaj na stronie!</h1>
+    <div class="well">
+        <h3 class="text-center">Zapraszamy do zapoznania się z naszą ofertą oraz facebookiem, na którym znajdziesz zdjęcia oraz próbki naszych możliwości!</h3>
+        <br />
+        <h4 class="text-center">Jeśli chcesz wstępnie zarezerwować termin wesela, zarejestruj się podając wymagane dane, a następnie zarezerwuj termin wesela!</h4>
     </div>
-</div>
+}
+
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("user"))
+    {
+        <div class="col-md-12 text-center">
+            <h1>Jesteś zdecydowany?</h1>
+            <div class="form-group">
+                <a href="/Wedding/BookDate" class="btn btn-info btn-lg" role="button">Rezerwuj termin!</a>
+            </div>
+        </div>
     }
 
-    else if(User.IsInRole("suser"))
+    else if (User.IsInRole("suser"))
     {
         @Html.ActionLink("Dodaj zadanie", "AddTask", "Task")
     }

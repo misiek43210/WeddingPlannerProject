@@ -57,9 +57,18 @@ namespace WeddingPlannerProject.Controllers
             }
         }
 
-        public ActionResult EditUser()
+        public ActionResult EditUser(string userNameToEdit)
         {
-            return View();
+            using (var db = new ApplicationDbContext())
+            {
+                var User = db.Users.Where(x => x.Id == userNameToEdit).FirstOrDefault();
+                EditUserViewModel userToEdit = new EditUserViewModel
+                { FirstName = User.FirstName,
+                    LastName = User.LastName,
+                    Email = User.Email
+                };
+                return View(userToEdit);
+            }
         }
 
         [HttpPost]
@@ -78,7 +87,8 @@ namespace WeddingPlannerProject.Controllers
                 manager.AddToRole(userToEdit.Id, EditUserViewModel.ApplicationRoleId);
 
                 userToEdit.Email = EditUserViewModel.Email;
-                userToEdit.FirstName = EditUserViewModel.Name;
+                userToEdit.FirstName = EditUserViewModel.FirstName;
+                userToEdit.LastName = EditUserViewModel.LastName;
                 db.Users.Add(userToEdit);
                 db.Entry(userToEdit).State = EntityState.Modified;
 
