@@ -1,0 +1,34 @@
+﻿@model WeddingPlannerProject.Models.WeddingToUserViewModel
+@{
+    ViewBag.Title = "ConfirmedWeddings";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Potwierdzone wesela</h2>
+
+<table class="table table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>L.p</th>
+            <th>Data</th>
+            <th>Lokalizacja</th>
+            <th>Liczba gości</th>
+            <th>Organizator</th>
+        </tr>
+    </thead>
+    @{ int counter = 1;}
+    @for(int i=0; i < Model.Wedding.Count; i++)
+    {
+        <tr>
+            <td>@(counter++)</td>
+            <td>@Model.Wedding[i].Date.ToShortDateString()</td>
+            <td>@Model.Wedding[i].LocationOfWedding</td>
+            <td>@Model.Wedding[i].NumberOfGuests</td>
+            <td>
+                @Html.Hidden("UserId", Model.User[i].Id)
+                @Model.User[i].FirstName @Model.User[i].LastName
+            </td>
+        </tr>
+    }
+</table>
+

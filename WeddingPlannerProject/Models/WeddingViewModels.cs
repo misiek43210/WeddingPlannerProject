@@ -22,11 +22,15 @@ namespace WeddingPlannerProject.Models
         public int NumberOfGuests { get; set; }
 
         [Required]
-        [Display(Name ="Lokalizacja wesela")]
+        [Display(Name = "Lokalizacja wesela")]
         public string LocationOfWedding { get; set; }
 
         [ForeignKey("User")]
         public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "Potwierdzone")]
+        public bool IsConfirmed { get; set; }
 
         public virtual ApplicationUser User { get; set; }
         public virtual ICollection<Wedding2OfferViewModel> Wedding_To_Offer { get; set; }
@@ -75,4 +79,10 @@ namespace WeddingPlannerProject.Models
         public WeddingViewModels Wedding { get; set; }
         public List<OfferViewModel> Offer { get; set; }
     }
+
+    public class WeddingToUserViewModel
+    {
+        public List<WeddingViewModels> Wedding { get; set; }
+        public List<ApplicationUser> User { get; set; }
+    } 
 }

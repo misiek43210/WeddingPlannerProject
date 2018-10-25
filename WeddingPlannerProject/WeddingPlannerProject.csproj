@@ -200,9 +200,9 @@
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\WeddingHelper.cs" />
-    <Compile Include="Migrations\201810231802020_mig1.cs" />
-    <Compile Include="Migrations\201810231802020_mig1.Designer.cs">
-      <DependentUpon>201810231802020_mig1.cs</DependentUpon>
+    <Compile Include="Migrations\201810251513029_mig1.cs" />
+    <Compile Include="Migrations\201810251513029_mig1.Designer.cs">
+      <DependentUpon>201810251513029_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -317,6 +317,9 @@
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Home\Offer.cshtml" />
     <Content Include="Views\Task\EditTask.cshtml" />
+    <Content Include="Views\Admin\EditWedding.cshtml" />
+    <Content Include="Views\Admin\ConfirmedWeddings.cshtml" />
+    <Content Include="Views\Admin\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,8 +338,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810231802020_mig1.resx">
-      <DependentUpon>201810231802020_mig1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810251513029_mig1.resx">
+      <DependentUpon>201810251513029_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

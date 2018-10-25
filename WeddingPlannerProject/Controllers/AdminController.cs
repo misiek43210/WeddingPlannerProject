@@ -44,11 +44,11 @@ namespace WeddingPlannerProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveUser(string userNameToDelete)
+        public ActionResult RemoveUser(string userId)
         {
             using (var db = new ApplicationDbContext())
             {
-                var userToDelete = db.Users.FirstOrDefault(x => x.Id == userNameToDelete);
+                var userToDelete = db.Users.FirstOrDefault(x => x.Id == userId);
                 db.Users.Attach(userToDelete);
                 db.Users.Remove(userToDelete);
                 db.SaveChanges();
@@ -57,13 +57,14 @@ namespace WeddingPlannerProject.Controllers
             }
         }
 
-        public ActionResult EditUser(string userNameToEdit)
+        public ActionResult EditUser(string userId)
         {
             using (var db = new ApplicationDbContext())
             {
-                var User = db.Users.Where(x => x.Id == userNameToEdit).FirstOrDefault();
+                var User = db.Users.Where(x => x.Id == userId).FirstOrDefault();
                 EditUserViewModel userToEdit = new EditUserViewModel
-                { FirstName = User.FirstName,
+                {
+                    FirstName = User.FirstName,
                     LastName = User.LastName,
                     Email = User.Email
                 };
@@ -72,13 +73,13 @@ namespace WeddingPlannerProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(string userNameToEdit, EditUserViewModel EditUserViewModel)
+        public ActionResult EditUser(string UserId, EditUserViewModel EditUserViewModel)
         {
             using (var db = new ApplicationDbContext())
             {
                 List<IdentityRole> ir = db.Roles.Include(r => r.Users).ToList();
 
-                var userToEdit = db.Users.FirstOrDefault(x => x.Id == userNameToEdit);
+                var userToEdit = db.Users.FirstOrDefault(x => x.Id == UserId);
 
                 var userStore = new UserStore<IdentityUser>();
                 var manager = new UserManager<IdentityUser>(userStore);
@@ -95,8 +96,63 @@ namespace WeddingPlannerProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("UsersList", "Admin");
             }
+        }    
 
+        public ActionResult EditWedding(string userId)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var UserContextWedding = db.Weddings.Where(x => x.UserId == userId).FirstOrDefault();
+                return View(UserContextWedding);
+            }
         }
-    
+        
+        [HttpPost]
+        public ActionResult ConfirmWedding(int WeddingId, WeddingViewModels WeddingViewModels, bool Confirmed)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var UserContextWedding = db.Weddings.Where(x => x.Id == WeddingId).FirstOrDefault();
+                UserContextWedding.IsConfirmed = Confirmed;
+
+                db.Weddings.Add(UserContextWedding);
+                db.Entry(UserContextWedding).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UsersList");
+            }
+        }
+
+        public ActionResult ConfirmedWeddings()
+        {
+            using(var db = new OtherDbContext())
+            {
+                var WeddingToUser = new WeddingToUserViewModel()
+                {
+                    Wedding = new List<WeddingViewModels>(),
+                    User = new List<ApplicationUser>()
+                };
+               var AppDb = new ApplicationDbContext();
+
+                WeddingToUser.Wedding = db.Weddings.Where(x => x.IsConfirmed == true).OrderBy(p => p.Date).ToList();
+
+                foreach (var weddings in WeddingToUser.Wedding)
+                {
+                    var UserWithConfirmedWedding = AppDb.Users.Where(x => x.Id == weddings.UserId).FirstOrDefault();
+                    WeddingToUser.User.Add(UserWithConfirmedWedding);
+                }
+               return View(WeddingToUser);
+            }
+        }
+
+        public ActionResult UserDetails(string UserId)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var User = db.Users.Where(x => x.Id == UserId).FirstOrDefault();
+
+                return View(User);
+            }
+        }
+
     }
 }

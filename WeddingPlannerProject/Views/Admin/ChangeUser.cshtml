@@ -20,7 +20,7 @@
                     <th>Imie</th>
                     <th>Nazwisko</th>
                     <th>Email</th>
-                    <td>Rola</td>
+                    <th>Rola</th>
                     <th>Akcja</th>
                 </tr>
             </thead>
@@ -36,21 +36,30 @@
                     <td>
                         @using (Html.BeginForm("RemoveUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
-                            @Html.Hidden("UserNameToDelete", user.Id)
+                            @Html.Hidden("UserId", user.Id)
                             <input type="submit" class="btn btn-danger" value="Usun" />
                         }
                         @using (Html.BeginForm("EditUser", "Admin", FormMethod.Get))
                         {
-                            @Html.Hidden("UserNameToEdit", user.Id)
+                            @Html.Hidden("UserId", user.Id)
                             <input type="submit" class="btn btn-info" value="Edytuj" />
                         }
 
-                        @using (Html.BeginForm("UserWedding", "Admin", FormMethod.Get))
+                        @using (Html.BeginForm("EditWedding", "Admin", FormMethod.Get))
                         {
                             if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(user))
                             {
-                                @Html.Hidden("UserIdWedding", user.Id)
+                                @Html.Hidden("userId", user.Id)
                                 <input type="submit" class="btn btn-primary" value="Wesele" />
+                            }
+                        }
+
+                       @using (Html.BeginForm("UserDetails", "Admin", FormMethod.Get))
+                        {
+                            if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(user))
+                            {
+                                @Html.Hidden("userId", user.Id)
+                                <input type="submit" class="btn btn-default" value="Szczegóły" />
                             }
                         }
                     </td>

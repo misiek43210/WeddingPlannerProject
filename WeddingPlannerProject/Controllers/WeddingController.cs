@@ -37,7 +37,6 @@ namespace WeddingPlannerProject.Controllers
             var appdb = new ApplicationDbContext();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = appdb.Users.Where(x => x.Id == currentUserId).FirstOrDefault();
-            
 
             using (var db = new OtherDbContext())
             {
@@ -48,7 +47,8 @@ namespace WeddingPlannerProject.Controllers
                         UserId = User.Identity.GetUserId(),
                         Date = WeddingOfferViewModel.Wedding.Date,
                         NumberOfGuests = WeddingOfferViewModel.Wedding.NumberOfGuests,
-                        LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding
+                        LocationOfWedding = WeddingOfferViewModel.Wedding.LocationOfWedding,
+                        IsConfirmed = false
                     }
                 };
 

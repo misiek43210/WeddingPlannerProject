@@ -42,7 +42,7 @@
     <div class="panel panel-default col-sm-12">
         <h2 class="text-center text-info">Moje Wesele</h2>
         <div class="panel-body">
-            @if(WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(Model.AppUser))
+            @if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(Model.AppUser))
             {
             <table class="table table-striped table-condensed">
                 <thead>
@@ -50,17 +50,31 @@
                         <th>Data</th>
                         <th>Liczba gosci</th>
                         <th>Lokalizacja</th>
+                        <th>Status</th>
                         <th>Oferta</th>
                     </tr>
                 </thead>
                 <tr>
-                    <td>@Model.Wedding.Date</td>
+                    <td>@Model.Wedding.Date.ToShortDateString()</td>
                     <td>@Model.Wedding.NumberOfGuests</td>
                     <td>@Model.Wedding.LocationOfWedding</td>
                     <td>
+                    @{ 
+                        if (Model.Wedding.IsConfirmed)
+                        {
+                         <span class="label label-success">Potwierdzone!</span>
+                        }
+
+                        else
+                        {
+                            <span class="label label-danger">Niepotwierdzone!</span>
+                        }
+                    }
+                    </td>
+                    <td>
                         @foreach (var item in Model.WeddingOffer)
                         {
-                            @item.Offer_Id
+                            @item.Offer_Id                           
                         }
                     </td>
                     @Html.ActionLink("Zmien dane", "ChangeWedding", "Wedding")

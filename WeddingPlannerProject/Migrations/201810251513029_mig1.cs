@@ -7,12 +7,12 @@ namespace WeddingPlannerProject.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Offers", "Name", c => c.String(nullable: false));
+            AddColumn("dbo.Weddings", "IsConfirmed", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Offers", "Name");
+            DropColumn("dbo.Weddings", "IsConfirmed");
         }
     }
 }
