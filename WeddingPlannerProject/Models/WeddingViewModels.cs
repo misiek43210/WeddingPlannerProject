@@ -61,12 +61,15 @@ namespace WeddingPlannerProject.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name="Nazwa")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name="Opis oferty")]
         public string Description { get; set; }
 
         [Required]
+        [Display(Name="Kwota")]
         public string Salary { get; set; }
 
         public virtual ICollection<Wedding2OfferViewModel> Wedding_2_Offer { get; set; }

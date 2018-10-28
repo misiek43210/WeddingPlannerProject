@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Vereyon.Web;
 using WeddingPlannerProject.Models;
 namespace WeddingPlannerProject.Controllers
 {
@@ -133,7 +134,8 @@ namespace WeddingPlannerProject.Controllers
                 };
                var AppDb = new ApplicationDbContext();
 
-                WeddingToUser.Wedding = db.Weddings.Where(x => x.IsConfirmed == true).OrderBy(p => p.Date).ToList();
+                WeddingToUser.Wedding = db.Weddings.Where(x => x.IsConfirmed == true).OrderBy
+                    (p => p.Date).ToList();
 
                 foreach (var weddings in WeddingToUser.Wedding)
                 {
@@ -154,5 +156,42 @@ namespace WeddingPlannerProject.Controllers
             }
         }
 
+        public ActionResult OffersList()
+        {
+            using (var db = new OtherDbContext())
+            {
+                var OfferList = db.Offers.ToList();
+                return View(OfferList);
+            }
+        }   
+    
+        public ActionResult RemoveOffer(int OfferId)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var OfferToDelete = db.Offers.Where(x => x.Id == OfferId).FirstOrDefault();
+                db.Offers.Remove(OfferToDelete);
+                db.SaveChanges();
+                Response.Write("<script>alert('Usunięto');</script>");
+                return RedirectToAction("OffersList");
+            }
+        }
+
+        public ActionResult AddOffer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddOffer(OfferViewModel Offer)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var OfferToAdd = Offer;
+                db.Offers.Add(OfferToAdd);
+                db.SaveChanges();
+                return RedirectToAction("OffersList");
+            }
+        }
     }
 }

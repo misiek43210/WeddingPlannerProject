@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WeddingPlannerProject.Models.OfferViewModel>
+@{
+    ViewBag.Title = "OffersList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Lista Ofert</h2>
+
+<div class="col-sm-12" style="margin-top:50px;">
+    @foreach (var offer in Model)
+    {
+    <div class="well well-sm">
+        <h4>
+            <strong>
+                @offer.Name
+            </strong>
+            <span class="pull-right label label-primary">@offer.Salary zł</span>
+        </h4>
+        <span class="lead">@offer.Description</span>
+        @using (Html.BeginForm("RemoveOffer", "Admin", FormMethod.Post, new { @class = "form-horizontal lead pull-right", role = "form" }))
+        {            
+            @Html.Hidden("OfferId", offer.Id)
+        <span><input type="submit" class="btn btn-danger" value="Usun" /></span>
+        }
+    </div>
+    }
+
+    <div style="max-width:inherit">
+         @using (Html.BeginForm("AddOffer", "Admin", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+        <button type="submit" class="btn btn-success btn-lg btn-block">Dodaj nową ofertę!</button>
+        }
+    </div>
+</div>
