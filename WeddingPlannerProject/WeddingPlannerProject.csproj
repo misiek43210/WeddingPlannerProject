@@ -202,6 +202,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\SiteRole.cs" />
     <Compile Include="Helpers\WeddingHelper.cs" />
     <Compile Include="Migrations\201810251513029_mig1.cs" />
     <Compile Include="Migrations\201810251513029_mig1.Designer.cs">

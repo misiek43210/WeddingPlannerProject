@@ -21,10 +21,11 @@
                     <td>@Model.AppUser.FirstName</td>
                     <td>@Model.AppUser.LastName</td>
                     <td>@Model.AppUser.Email</td>
-                    <td><span class="label label-info">Super Użytkownik</span></td>
+                    @if (User.IsInRole("suser")) {<td><span class="label label-info">Super Użytkownik</span></td> }
+                    @if(User.IsInRole("user")){<td><span class="label label-info">Użytkownik</span></td> }
+                    @if(User.IsInRole("admin")){<td><span class="label label-danger">Administrator</span></td> }
                 </tr>
             </table>
-            <button class="btn btn-info">Edytuj dane</button>
         </div>
     </div>
     @if (User.IsInRole("suser"))

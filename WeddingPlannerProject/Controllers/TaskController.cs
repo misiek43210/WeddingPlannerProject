@@ -10,6 +10,7 @@ using WeddingPlannerProject.Models;
 
 namespace WeddingPlannerProject.Controllers
 {
+    [Authorize(Roles = "suser")]
     public class TaskController : Controller
     {
 

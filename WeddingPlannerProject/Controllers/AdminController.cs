@@ -11,6 +11,7 @@ using Vereyon.Web;
 using WeddingPlannerProject.Models;
 namespace WeddingPlannerProject.Controllers
 {
+    [Authorize(Roles="admin")]
     public class AdminController : Controller
     {
         // GET: Admin

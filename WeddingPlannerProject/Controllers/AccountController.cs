@@ -414,6 +414,7 @@ namespace WeddingPlannerProject.Controllers
         }
 
         //Metoda wyświetlająca szczegóły profilu. Można tutaj również dodać zadania
+        [Authorize]
         public ActionResult MyProfile()
         {
             using (var db = new OtherDbContext())

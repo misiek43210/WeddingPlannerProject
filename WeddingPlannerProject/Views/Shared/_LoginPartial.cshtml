@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Mój profil", "MyProfile", "Account")
+            @if(User.IsInRole("suser") || User.IsInRole("user")){@Html.ActionLink("Mój profil", "MyProfile", "Account")} 
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
     </ul>

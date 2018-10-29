@@ -13,6 +13,7 @@ namespace WeddingPlannerProject.Controllers
     public class WeddingController : Controller
     {
         //Wyświetlanie strony rezerwacji terminu
+        [Authorize(Roles = "user")]
         public ActionResult BookDate()
         {
             var LoggedUserId = User.Identity.GetUserId();
@@ -32,6 +33,7 @@ namespace WeddingPlannerProject.Controllers
 
         //Wysyłanie danych odnośnie rezerwacji terminu
         [HttpPost]
+        [Authorize(Roles = "user")]
         public ActionResult BookDate(WeddingOfferViewModel WeddingOfferViewModel)
         {
             var appdb = new ApplicationDbContext();
