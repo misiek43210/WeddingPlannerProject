@@ -33,13 +33,13 @@
                 <td>@task.Status</td>
                 <td>
 
-                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                           {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-danger" value="Edytuj" />
                           }
 
-                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                           {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-warning" value="Usun" />
@@ -79,13 +79,13 @@
                 <td>@task.Status</td>
                 <td>
 
-                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                           {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-danger" value="Edytuj" />
                           }
 
-                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline",  role = "form" }))
                           {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-warning" value="Usun" />
@@ -124,18 +124,19 @@
                 <td>@task.Description</td>
                 <td>@task.Status</td>
                 <td>
-
-                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-                          {
+                    <div style="display:inline-block">
+                         @using (Html.BeginForm("EditTask", "Task", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
+                         {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-warning" value="Edytuj" />
                           }
 
-                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                          @using (Html.BeginForm("RemoveTask", "Task", FormMethod.Get, new { @class = "form-horizontal",  @style = "display:inline", role = "form" }))
                           {
                              @Html.Hidden("TaskId", task.Id)
                              <input type="submit" class="btn btn-danger" value="Usun" />
                           }
+                        </div>
                 </td>
             </tr>   
                     }
@@ -143,6 +144,14 @@
             </tbody>
 
         </table>
+
+
+        <div style="margin-bottom:30px; margin-top:50px;">
+         @using (Html.BeginForm("AddTask", "Task", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+        <button type="submit" class="btn btn-success btn-lg">Dodaj zadanie!</button>
+        }
+    </div>   
     </div>
 
 </div>

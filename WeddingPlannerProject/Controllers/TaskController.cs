@@ -40,7 +40,7 @@ namespace WeddingPlannerProject.Controllers
                     db.Tasks.Add(NewTask);
                     db.SaveChanges();
                 }
-                return RedirectToAction("index", "Home");         
+                return RedirectToAction("MyTasks");         
         }
 
         public ActionResult RemoveTask(int TaskId)

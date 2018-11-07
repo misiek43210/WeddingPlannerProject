@@ -34,18 +34,18 @@
                     <td>@user.Email</td>
                     <td>@string.Join(",", Model.Roles.Where(r => r.Users.Any(u => u.UserId == user.Id)).Select(r => r.Name))</td>
                     <td>
-                        @using (Html.BeginForm("RemoveUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        @using (Html.BeginForm("RemoveUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                         {
                             @Html.Hidden("UserId", user.Id)
                             <input type="submit" class="btn btn-danger" value="Usun" />
                         }
-                        @using (Html.BeginForm("EditUser", "Admin", FormMethod.Get))
+                        @using (Html.BeginForm("EditUser", "Admin", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                         {
                             @Html.Hidden("UserId", user.Id)
                             <input type="submit" class="btn btn-info" value="Edytuj" />
                         }
 
-                        @using (Html.BeginForm("EditWedding", "Admin", FormMethod.Get))
+                        @using (Html.BeginForm("EditWedding", "Admin", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                         {
                             if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(user))
                             {
@@ -54,7 +54,7 @@
                             }
                         }
 
-                       @using (Html.BeginForm("UserDetails", "Admin", FormMethod.Get))
+                       @using (Html.BeginForm("UserDetails", "Admin", FormMethod.Get, new { @class = "form-horizontal", @style = "display:inline", role = "form" }))
                         {
                             if (WeddingPlannerProject.Helpers.WeddingHelper.HasUserWedding(user))
                             {
