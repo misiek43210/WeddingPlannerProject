@@ -89,6 +89,7 @@ namespace WeddingPlannerProject.Models
 
         [Required]
         [Display(Name = "Numer Telefonu")]
+        [MinLength(9)]
         public string PhoneNumber { get; set; }
     }
 

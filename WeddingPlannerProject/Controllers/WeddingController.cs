@@ -54,14 +54,6 @@ namespace WeddingPlannerProject.Controllers
                     }
                 };
 
-                if (WeddingHelper.IsConfirmedWeddingExist(NewWedding.Wedding.Date))
-                {
-                    ViewBag.BookedWedding = "Zarezerwowano wesele w takim terminie! Zmien termin juz teraz!";
-                    return RedirectToAction("BookDate");
-                }
-
-                else
-                {
                     //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
                     var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
                     foreach (var item in selectedOffer)
@@ -81,7 +73,7 @@ namespace WeddingPlannerProject.Controllers
                     string subject = "Zarezerwowano nowe wesele!";
                     EmailHelper.SendEmail(message, subject, "michalmamelka@gmail.com");
                     return RedirectToAction("Index", "Home");
-                }
+                
             }
         }
 

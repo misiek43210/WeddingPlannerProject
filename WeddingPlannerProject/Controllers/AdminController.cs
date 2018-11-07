@@ -11,7 +11,7 @@ using WeddingPlannerProject.Models;
 using WeddingPlannerProject.Helpers;
 namespace WeddingPlannerProject.Controllers
 {
-    [Authorize(Roles="admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -98,7 +98,7 @@ namespace WeddingPlannerProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("UsersList", "Admin");
             }
-        }    
+        }
 
         public ActionResult EditWedding(string userId)
         {
@@ -108,7 +108,7 @@ namespace WeddingPlannerProject.Controllers
                 return View(UserContextWedding);
             }
         }
-        
+
         [HttpPost]
         public ActionResult ConfirmWedding(int WeddingId, WeddingViewModels WeddingViewModels, bool Confirmed)
         {
@@ -119,19 +119,33 @@ namespace WeddingPlannerProject.Controllers
 
                 var UserId = UserContextWedding.UserId;
 
-                    db.Weddings.Add(UserContextWedding);
+                db.Weddings.Add(UserContextWedding);
                 db.Entry(UserContextWedding).State = EntityState.Modified;
                 db.SaveChanges();
 
+
+                //Wysyłanie maila do pary młodej oraz nadawanie automatycznie uprawnień superusera.
                 using (var userdb = new ApplicationDbContext())
                 {
                     var UserWithWedding = userdb.Users.Where(x => x.Id == UserId).FirstOrDefault();
                     EmailHelper.SendEmail("Administrator portalu BlueBinders.pl potwierdzil Twoje wesele i nadal Ci specjalne uprawnienia!" +
                     " Od teraz mozesz zarzadzac zadaniami i profilem!", "Zatwierdzono wesele", UserWithWedding.Email);
+
+                    List<IdentityRole> ir = userdb.Roles.Include(r => r.Users).ToList();
+                    var userStore = new UserStore<IdentityUser>();
+                    var manager = new UserManager<IdentityUser>(userStore);
+                    var currentRole = manager.GetRoles(UserWithWedding.Id);
+                    manager.RemoveFromRoles(UserWithWedding.Id, currentRole[0]);
+                    manager.AddToRole(UserWithWedding.Id, "suser");
+                    userdb.Users.Add(UserWithWedding);
+                    userdb.Entry(UserWithWedding).State = EntityState.Modified;
+                    userdb.SaveChanges();
                 }
-                return RedirectToAction("UsersList");
             }
+            return RedirectToAction("UsersList");
         }
+    
+
 
         public ActionResult ConfirmedWeddings()
         {
