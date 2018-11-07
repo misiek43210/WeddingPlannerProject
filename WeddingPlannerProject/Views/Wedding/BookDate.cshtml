@@ -11,7 +11,7 @@
     @using (Html.BeginForm("BookDate", "Wedding", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         <hr />
-
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(m => m.Wedding.Date, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
@@ -43,14 +43,13 @@
                 </thead>
                 @for (int i = 0; i < Model.Offer.Count; i++)
                 {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@Html.DisplayFor(m => m.Offer[i].Name)</td>
-                    <td>@Html.DisplayFor(m => m.Offer[i].Salary)</td>
-                    <td>@Html.CheckBoxFor(m => m.Offer[i].IsChecked)</td>
-                    @Html.HiddenFor(m => m.Offer[i].Id)
-
-                </tr>
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Html.DisplayFor(m => m.Offer[i].Name)</td>
+                        <td>@Html.DisplayFor(m => m.Offer[i].Salary)</td>
+                        <td>@Html.CheckBoxFor(m => m.Offer[i].IsChecked)</td>
+                        @Html.HiddenFor(m => m.Offer[i].Id)
+                    </tr>
                 }
             </table>
         </div>

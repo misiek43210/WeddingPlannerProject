@@ -7,8 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Vereyon.Web;
 using WeddingPlannerProject.Models;
+using WeddingPlannerProject.Helpers;
 namespace WeddingPlannerProject.Controllers
 {
     [Authorize(Roles="admin")]
@@ -117,9 +117,18 @@ namespace WeddingPlannerProject.Controllers
                 var UserContextWedding = db.Weddings.Where(x => x.Id == WeddingId).FirstOrDefault();
                 UserContextWedding.IsConfirmed = Confirmed;
 
-                db.Weddings.Add(UserContextWedding);
+                var UserId = UserContextWedding.UserId;
+
+                    db.Weddings.Add(UserContextWedding);
                 db.Entry(UserContextWedding).State = EntityState.Modified;
                 db.SaveChanges();
+
+                using (var userdb = new ApplicationDbContext())
+                {
+                    var UserWithWedding = userdb.Users.Where(x => x.Id == UserId).FirstOrDefault();
+                    EmailHelper.SendEmail("Administrator portalu BlueBinders.pl potwierdzil Twoje wesele i nadal Ci specjalne uprawnienia!" +
+                    " Od teraz mozesz zarzadzac zadaniami i profilem!", "Zatwierdzono wesele", UserWithWedding.Email);
+                }
                 return RedirectToAction("UsersList");
             }
         }

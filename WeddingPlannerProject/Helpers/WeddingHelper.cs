@@ -23,7 +23,24 @@ namespace WeddingPlannerProject.Helpers
                 {
                     return false;
                 }
+            }
+        }
 
+        public static bool IsConfirmedWeddingExist(DateTime date)
+        {
+            using (var db = new OtherDbContext())
+            {
+                var Wedding = db.Weddings.Where(x => x.IsConfirmed == true).ToList();
+
+                var BookedWedding = false;
+                foreach(var weddings in Wedding)
+                {
+                    if(weddings.Date == date)
+                    {
+                        return BookedWedding == true;
+                    }
+                }
+                return BookedWedding;
             }
         }
     }

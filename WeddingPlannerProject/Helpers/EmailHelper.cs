@@ -9,7 +9,7 @@ namespace WeddingPlannerProject.Helpers
     public static class EmailHelper
     {
 
-        public static void SendEmail(string message, string subject)
+        public static void SendEmail(string message, string subject, string email)
         {
             SmtpClient client = new SmtpClient();
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -24,7 +24,7 @@ namespace WeddingPlannerProject.Helpers
 
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress("bluebinderss@gmail.com");
-            msg.To.Add(new MailAddress("michalmamelka@gmail.com"));
+            msg.To.Add(new MailAddress(email));
             msg.Subject = subject;
             
             msg.IsBodyHtml = true;

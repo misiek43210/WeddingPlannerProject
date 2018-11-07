@@ -13,15 +13,15 @@ namespace WeddingPlannerProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Prosze uzupelnic pole o poprawna date!")]
         [Display(Name = "Data wesela")]
         public DateTime Date { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Prosze uzupelnic pole o szacowana liczbe gosci!")]
         [Display(Name = "Liczba Gości")]
         public int NumberOfGuests { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Prosze uzupelnic pole o planowana lokalizacje wesela!")]
         [Display(Name = "Lokalizacja wesela")]
         public string LocationOfWedding { get; set; }
 
@@ -80,6 +80,8 @@ namespace WeddingPlannerProject.Models
     public class WeddingOfferViewModel
     {
         public WeddingViewModels Wedding { get; set; }
+
+        [Required(ErrorMessage = "Prosze wybrac oferte!")]
         public List<OfferViewModel> Offer { get; set; }
     }
 

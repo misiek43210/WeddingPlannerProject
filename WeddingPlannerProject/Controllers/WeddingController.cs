@@ -54,26 +54,35 @@ namespace WeddingPlannerProject.Controllers
                     }
                 };
 
-                //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
-                var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
-                foreach (var item in selectedOffer)
+                if (WeddingHelper.IsConfirmedWeddingExist(NewWedding.Wedding.Date))
                 {
-                    var Wedding2Offer = new Wedding2OfferViewModel
-                    {
-                        Wedding_Id = NewWedding.Wedding.Id,
-                        Offer_Id = item.Id
-                    };
-                    db.Wedding2Offers.Add(Wedding2Offer);
+                    ViewBag.BookedWedding = "Zarezerwowano wesele w takim terminie! Zmien termin juz teraz!";
+                    return RedirectToAction("BookDate");
                 }
 
-                //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
-                db.Weddings.Add(NewWedding.Wedding);
-                db.SaveChanges();
-                string message = "Uzytkownik " + currentUser.FirstName + " " + currentUser.LastName + " zarezerwowal termin " + NewWedding.Wedding.Date + " . Skontaktuj sie z nim!";
-                string subject = "Zarezerwowano nowe wesele!";
-                EmailHelper.SendEmail(message, subject);
+                else
+                {
+                    //Przypisanie ID oferty do ID wesela i dodanie do kontekstu DB
+                    var selectedOffer = WeddingOfferViewModel.Offer.Where(x => x.IsChecked == true).ToList();
+                    foreach (var item in selectedOffer)
+                    {
+                        var Wedding2Offer = new Wedding2OfferViewModel
+                        {
+                            Wedding_Id = NewWedding.Wedding.Id,
+                            Offer_Id = item.Id
+                        };
+                        db.Wedding2Offers.Add(Wedding2Offer);
+                    }
+
+                    //Dodanie danych o weselu i zapisanie zmian w bazie danych. 
+                    db.Weddings.Add(NewWedding.Wedding);
+                    db.SaveChanges();
+                    string message = "Uzytkownik " + currentUser.FirstName + " " + currentUser.LastName + " zarezerwowal termin " + NewWedding.Wedding.Date + " . Skontaktuj sie z nim!";
+                    string subject = "Zarezerwowano nowe wesele!";
+                    EmailHelper.SendEmail(message, subject, "michalmamelka@gmail.com");
+                    return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index","Home");
+            }
         }
 
         //Zmiana danych o weselu
